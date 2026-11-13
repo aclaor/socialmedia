@@ -18,7 +18,7 @@ A short-video social app that runs entirely on Cloudflare: one Worker, a D1 data
 
 1. In the Cloudflare dashboard, open **R2** once and turn it on for your account (video files are stored there).
 2. Go to **Workers & Pages → Create → Import a repository** and pick this repo. Keep the default deploy command, `npx wrangler deploy`.
-3. Deploy. The database (`clipleey-db`) and the bucket (`clipleey-media`) are created automatically, and the tables are created on the first visit.
+3. Deploy. The database (`clipleey-db`) and your `clipleey` bucket is connected automatically, and the tables are created on the first visit.
 4. Open the site and create your account first, so that you are the admin.
 5. Add your own domain under the Worker's **Settings → Domains & Routes**.
 

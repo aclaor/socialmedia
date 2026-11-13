@@ -11,7 +11,7 @@
   },
   // The database and the video bucket are created automatically on the first deploy.
   "d1_databases": [{ "binding": "DB", "database_name": "clipleey-db" }],
-  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "clipleey-media" }],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "clipleey" }],
   "vars": {
     "SITE_NAME": "Clipleey",
     // Paste the codes from Google Search Console and Bing Webmaster Tools here (the content="" value only).
