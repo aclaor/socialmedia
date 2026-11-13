@@ -14,6 +14,8 @@
   "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "clipleey" }],
   "vars": {
     "SITE_NAME": "Clipleey",
+    // Largest video a person can upload, in MB (1 to 95). Lower it to save storage.
+    "MAX_VIDEO_MB": "50",
     // Paste the codes from Google Search Console and Bing Webmaster Tools here (the content="" value only).
     "GOOGLE_SITE_VERIFICATION": "",
     "BING_SITE_VERIFICATION": "",

@@ -37,6 +37,7 @@ Public videos, profiles, hashtag pages and Discover are indexable. Private video
 | Name | What it does |
 | --- | --- |
 | `SITE_NAME` | The name shown in the app and in search results |
+| `MAX_VIDEO_MB` | Largest video upload allowed, 1 to 95 MB |
 | `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION` | Search engine verification codes |
 | `INDEXNOW_KEY` | Turns on instant Bing notifications |
 | `ADMIN_USERNAMES` | Extra admins, comma-separated |
@@ -52,6 +53,6 @@ npm run dev
 
 ## Limits to know about
 
-- Videos are stored and played as uploaded (MP4, WebM or MOV, up to 95 MB). There is no transcoding.
+- Videos are stored and played as uploaded (MP4, WebM or MOV, up to the `MAX_VIDEO_MB` limit). There is no transcoding.
 - The feed ranking is a simple formula (engagement with a recency decay, unwatched videos first), not machine learning.
 - The Terms, Privacy and Guidelines pages are starting text. Review them before you launch.

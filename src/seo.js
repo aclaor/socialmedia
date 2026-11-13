@@ -1,4 +1,4 @@
-import { all, one } from './index.js';
+import { all, one, maxVideoMb } from './index.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const clip = (s, n) => { s = String(s || '').replace(/\s+/g, ' ').trim(); return s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s; };
@@ -137,7 +137,7 @@ export async function renderPage(env, request, url) {
     env.GOOGLE_SITE_VERIFICATION && `<meta name="google-site-verification" content="${esc(env.GOOGLE_SITE_VERIFICATION)}">`,
     env.BING_SITE_VERIFICATION && `<meta name="msvalidate.01" content="${esc(env.BING_SITE_VERIFICATION)}">`,
     ...d.jsonld.map((j) => `<script type="application/ld+json">${JSON.stringify(j).replace(/</g, '\\u003c')}</script>`),
-    `<script>window.__BOOT__=${JSON.stringify({ site }).replace(/</g, '\\u003c')}</script>`,
+    `<script>window.__BOOT__=${JSON.stringify({ site, maxVideoMb: maxVideoMb(env) }).replace(/</g, '\\u003c')}</script>`,
   ].filter(Boolean).join('\n');
 
   const shell = await env.ASSETS.fetch(new Request(new URL('/', url), { headers: { accept: 'text/html' } }));

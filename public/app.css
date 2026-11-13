@@ -79,10 +79,10 @@ textarea { resize: vertical; }
 .feed-tabs { position: absolute; top: 0; left: 0; right: 0; z-index: 5; display: flex; justify-content: center; gap: 22px; padding: 16px 0 10px; pointer-events: none; font: 650 1.05rem var(--display); }
 .feed-tabs a { pointer-events: auto; color: rgba(245,240,232,.62); padding-bottom: 4px; border-bottom: 3px solid transparent; text-shadow: 0 1px 6px rgba(0,0,0,.5); }
 .feed-tabs a.on { color: var(--text); border-color: var(--mango); }
-.slide { height: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: grid; place-items: center; }
-.frame { position: relative; display: flex; align-items: flex-end; gap: 16px; height: calc(100% - 28px); max-width: 100%; }
-.stage { position: relative; height: 100%; aspect-ratio: 9 / 16; max-width: calc(100vw - var(--nav-w) - 130px); border-radius: 18px; overflow: hidden; background: #000; cursor: pointer; }
-.stage video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+.slide { height: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.frame { position: relative; display: flex; align-items: flex-end; gap: 16px; height: calc(100% - 28px); max-height: calc(100dvh - 28px); max-width: 100%; }
+.stage { position: relative; height: 100%; min-height: 0; flex: none; aspect-ratio: 9 / 16; max-width: calc(100vw - var(--nav-w) - 130px); border-radius: 18px; overflow: hidden; background: #000; cursor: pointer; }
+.stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
 .stage video.wide { object-fit: contain; }
 .stage::after { content: ''; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(transparent, rgba(8,5,14,.78)); pointer-events: none; }
 .meta { position: absolute; left: 16px; right: 16px; bottom: 18px; z-index: 2; display: grid; gap: 6px; text-shadow: 0 1px 4px rgba(0,0,0,.55); }
@@ -198,8 +198,8 @@ textarea { resize: vertical; }
   .nav-item:hover { background: none; }
   .nav-item.post .nav-label { display: none; } .nav-item.post .ic { width: 42px; height: 30px; padding: 3px 9px; border-radius: 10px; }
   .nav-item .badge { left: 50%; top: 2px; }
-  .frame { height: 100%; width: 100%; display: block; }
-  .stage { width: 100%; max-width: none; aspect-ratio: auto; border-radius: 0; }
+  .frame { height: 100%; max-height: none; width: 100%; display: block; }
+  .stage { width: 100%; height: 100%; max-width: none; aspect-ratio: auto; border-radius: 0; }
   .rail { position: absolute; right: 8px; bottom: 26px; z-index: 3; gap: 12px; }
   .act { text-shadow: 0 1px 4px rgba(0,0,0,.6); } .act .ic { background: none; padding: 6px; width: 44px; height: 44px; filter: drop-shadow(0 1px 3px rgba(0,0,0,.5)); }
   .meta { right: 76px; bottom: 22px; }
@@ -211,5 +211,9 @@ textarea { resize: vertical; }
   .profile { flex-direction: column; align-items: center; text-align: center; gap: 12px; } .profile-main { justify-items: center; } .stats, .profile-actions { justify-content: center; }
   .upload { grid-template-columns: 1fr; } .drop { min-height: 260px; }
   .toast { bottom: calc(var(--bar-h) + 20px); }
+}
+@media (min-width: 861px) and (max-height: 680px) {
+  .rail { gap: 7px; } .rail-avatar .avatar { width: 38px !important; height: 38px !important; }
+  .act { font-size: .7rem; gap: 1px; } .act .ic { width: 38px; height: 38px; padding: 8px; }
 }
 @media (prefers-reduced-motion: reduce) { .burst { animation-duration: .01s; } * { scroll-behavior: auto !important; } }

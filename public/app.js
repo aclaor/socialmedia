@@ -1,5 +1,6 @@
 /* Clipleey web app. Plain JavaScript, no build step. */
 const SITE = (window.__BOOT__ && window.__BOOT__.site) || 'Clipleey';
+const MAX_MB = (window.__BOOT__ && window.__BOOT__.maxVideoMb) || 95;
 const root = document.getElementById('app');
 
 /* ---------- tiny helpers ---------- */
@@ -648,7 +649,7 @@ const pages = {
     async function setVideo(file) {
       const type = (file.type || '').split(';')[0];
       if (!['video/mp4', 'video/webm', 'video/quicktime'].includes(type)) return toast('Use an MP4, WebM or MOV video.');
-      if (file.size > 95 * 1024 * 1024) return toast('That video is larger than 95 MB. Trim or compress it first.');
+      if (file.size > MAX_MB * 1024 * 1024) return toast(`That video is larger than ${MAX_MB} MB. Trim or compress it first.`);
       blob = file; thumb = null;
       stopCamera();
       preview.srcObject = null; preview.muted = false; preview.controls = true;
@@ -694,7 +695,7 @@ const pages = {
     function chooser() {
       blob = null; post.disabled = true;
       drop.replaceChildren(h('div', { class: 'drop-inner' },
-        h('h2', {}, 'Choose a video to post'), h('p', { class: 'muted' }, 'MP4, WebM or MOV. Up to 95 MB. Vertical videos look best.'),
+        h('h2', {}, 'Choose a video to post'), h('p', { class: 'muted' }, `MP4, WebM or MOV. Up to ${MAX_MB} MB. Vertical videos look best.`),
         h('div', { class: 'drop-actions' },
           h('button', { class: 'btn primary', type: 'button', onclick: () => fileInput.click() }, 'Choose file'),
           h('button', { class: 'btn', type: 'button', onclick: record }, icon('camera'), 'Record with camera'))));

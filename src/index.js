@@ -132,6 +132,7 @@ const UPLOAD_KINDS = {
   thumb: { max: 2 * 1024 * 1024, types: { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' } },
   avatar: { max: 2 * 1024 * 1024, types: { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' } },
 };
+export const maxVideoMb = (env) => Math.min(95, Math.max(1, Number(env.MAX_VIDEO_MB) || 95));
 async function handleUpload(env, request, url, user) {
   const kind = url.searchParams.get('kind');
   const spec = UPLOAD_KINDS[kind];
@@ -141,7 +142,8 @@ async function handleUpload(env, request, url, user) {
   if (!ext) throw new HttpError(415, kind === 'video' ? 'Use an MP4, WebM or MOV video.' : 'Use a JPG, PNG or WebP image.');
   const size = parseInt(request.headers.get('content-length') || '0', 10);
   if (!size) throw new HttpError(411, 'The file is empty.');
-  if (size > spec.max) throw new HttpError(413, `That file is too large. The limit is ${Math.round(spec.max / 1048576)} MB.`);
+  const max = kind === 'video' ? maxVideoMb(env) * 1048576 : spec.max;
+  if (size > max) throw new HttpError(413, `That file is too large. The limit is ${Math.round(max / 1048576)} MB.`);
   if (kind === 'video') {
     const r = await one(env, `SELECT COUNT(*) AS n FROM uploads WHERE user_id = ?1 AND kind = 'video' AND created_at > ?2`, user.id, now() - 86400);
     if (r.n >= 30) throw new HttpError(429, 'You have reached the daily upload limit. Try again tomorrow.');
